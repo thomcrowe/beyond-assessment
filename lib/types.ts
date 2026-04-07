@@ -53,12 +53,12 @@ export interface ScoreWithTotal extends Score {
 }
 
 export function calcTotal(s: Partial<Score>): number {
-  const dims = [
+  const dims: number[] = [
     s.t1_problem_identification, s.t1_data_use, s.t1_intervention_quality, s.t1_prioritization,
     s.t2_correct_diagnosis, s.t2_metrics_interpretation, s.t2_recommendation_quality, s.t2_funnel_awareness,
     s.t3_prompt_quality, s.t3_ai_output_evaluation, s.t3_data_grounding, s.t3_ai_fluency, s.t3_speed_decisiveness,
-  ]
-  return dims.reduce((sum, v) => sum + (v ?? 0), 0)
+  ].map(v => v ?? 0)
+  return dims.reduce((sum, v) => sum + v, 0)
 }
 
 export function scoreLabel(total: number): { label: string; color: string } {
@@ -197,7 +197,7 @@ Here's what we found:
 There's a demand spike coming. {{upcoming_event_name}} on {{upcoming_event_date}} is driving strong booking activity in your area. Your rates for those dates are already optimized to capture it.
 {{/if}}
 
-Your base price is set at ${{base_price}}/night based on your market and listing type. You can adjust this anytime -- it's the number Beyond uses as a reference point when building your rates.
+Your base price is set at \${{base_price}}/night based on your market and listing type. You can adjust this anytime -- it's the number Beyond uses as a reference point when building your rates.
 
 To start posting prices to your calendar, enable pricing for your listing. It takes one click.
 
