@@ -64,7 +64,7 @@ export function calcTotal(s: Partial<Score>): number {
 export function scoreLabel(total: number): { label: string; color: string } {
   if (total >= 55) return { label: 'Exceptional — Strong hire signal', color: '#3bc1cc' }
   if (total >= 42) return { label: 'Strong — Minor gaps worth probing', color: '#02556c' }
-  if (total >= 29) return { label: 'Developing — Panel review recommended', color: '#f59e0b' }
+  if (total >= 29) return { label: 'Developing — Notable gaps', color: '#f59e0b' }
   return { label: 'Not ready for this scope', color: '#ee3968' }
 }
 

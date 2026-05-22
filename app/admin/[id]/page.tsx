@@ -80,8 +80,10 @@ export default function AdminReview() {
   }
 
   const total = calcTotal(score)
-  const signal = scoreLabel(total)
   const dqFlags = [score.dq_no_data, score.dq_missed_email2, score.dq_no_ai_interpretation].filter(Boolean)
+  const signal = dqFlags.length > 0
+    ? { label: 'Disqualified — Do not advance', color: '#ee3968' }
+    : scoreLabel(total)
 
   const taskRubrics = [null, RUBRIC.task1, RUBRIC.task2, RUBRIC.task3]
 
