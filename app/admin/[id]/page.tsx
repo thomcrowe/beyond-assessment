@@ -16,6 +16,7 @@ export default function AdminReview() {
   const [reviewerName, setReviewerName] = useState('')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [saveError, setSaveError] = useState('')
   const [activeTask, setActiveTask] = useState(1)
 
   useEffect(() => {
@@ -50,8 +51,21 @@ export default function AdminReview() {
     setScore(prev => ({ ...prev, [key]: val }))
   }
 
+  function getScoreErrors() {
+    const errors: string[] = []
+    if (!reviewerName.trim()) errors.push('Enter your name before saving.')
+    const allDims = [
+      ...RUBRIC.task1, ...RUBRIC.task2, ...RUBRIC.task3
+    ].map(d => d.key)
+    const unscored = allDims.filter(k => !score[k as keyof Score])
+    if (unscored.length > 0) errors.push(`${unscored.length} dimension${unscored.length > 1 ? 's' : ''} not yet scored.`)
+    return errors
+  }
+
   async function saveScore() {
-    if (!reviewerName.trim()) return
+    const errors = getScoreErrors()
+    if (errors.length > 0) { setSaveError(errors.join(' ')); return }
+    setSaveError('')
     setSaving(true)
     const payload = {
       ...score,
@@ -79,8 +93,8 @@ export default function AdminReview() {
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <span style={{ color: '#9ca3af', fontSize: 13 }}>{saved ? <span style={{ color: '#3bc1cc' }}>✓ Saved</span> : saving ? 'Saving...' : ''}</span>
-          <button onClick={saveScore} disabled={!reviewerName.trim() || saving}
-            style={{ padding: '8px 20px', background: reviewerName.trim() ? '#3bc1cc' : '#374151', color: reviewerName.trim() ? '#252f38' : '#6b7280', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: reviewerName.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
+          <button onClick={saveScore} disabled={saving}
+            style={{ padding: '8px 20px', background: '#3bc1cc', color: '#252f38', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
             Save Score
           </button>
         </div>
@@ -234,8 +248,13 @@ export default function AdminReview() {
             />
           </div>
 
-          <button onClick={saveScore} disabled={!reviewerName.trim() || saving}
-            style={{ width: '100%', padding: 14, background: reviewerName.trim() ? '#252f38' : '#e5e7eb', color: reviewerName.trim() ? 'white' : '#9ca3af', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: reviewerName.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
+          {saveError && (
+            <div style={{ marginBottom: 12, padding: '10px 14px', background: '#fdedf1', border: '1px solid #ee3968', borderRadius: 8, fontSize: 13, color: '#ee3968' }}>
+              {saveError}
+            </div>
+          )}
+          <button onClick={saveScore} disabled={saving}
+            style={{ width: '100%', padding: 14, background: '#252f38', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
             {saving ? 'Saving...' : 'Save Score'}
           </button>
         </div>

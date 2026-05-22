@@ -161,9 +161,25 @@ export default function Dashboard() {
               </button>
             </>
           ) : (
-            <p style={{ margin: 0, fontSize: 14, color: '#9ca3af' }}>
-              Complete all three tasks to unlock submission. {[1, 2, 3].filter(id => getTaskStatus(id) === 'complete').length} of 3 complete.
-            </p>
+            <div>
+              <p style={{ margin: '0 0 10px', fontSize: 14, color: '#374151', fontWeight: 500 }}>
+                Complete all three tasks to unlock submission.
+              </p>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {[
+                  { id: 1, title: 'Funnel Diagnosis' },
+                  { id: 2, title: 'Email Sequence Analysis' },
+                  { id: 3, title: 'AI-Powered Analysis' },
+                ].map(task => {
+                  const status = getTaskStatus(task.id)
+                  return (
+                    <li key={task.id} style={{ fontSize: 13, color: status === 'complete' ? '#3bc1cc' : status === 'in_progress' ? '#f59e0b' : '#9ca3af', display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}>
+                      {status === 'complete' ? '✓' : status === 'in_progress' ? '◐' : '○'} Task {task.id}: {task.title} — {status === 'complete' ? 'Complete' : status === 'in_progress' ? 'In progress' : 'Not started'}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
           )}
         </div>
       </div>
