@@ -92,10 +92,17 @@ export default function AdminReview() {
   return (
     <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
 
-      {/* Save toast */}
+      {/* Save modal */}
       {saved && (
-        <div style={{ position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)', background: '#252f38', color: 'white', padding: '14px 28px', borderRadius: 12, fontSize: 14, fontWeight: 600, boxShadow: '0 8px 32px rgba(37,47,56,0.2)', zIndex: 1000, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ color: '#3bc1cc', fontSize: 18 }}>✓</span> Thanks for reviewing — score saved.
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(37,47,56,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: 'white', borderRadius: 16, padding: '40px 48px', textAlign: 'center', boxShadow: '0 16px 48px rgba(37,47,56,0.2)', maxWidth: 380, width: '90%' }}>
+            <div style={{ width: 56, height: 56, background: '#e8f8fa', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 24, color: '#3bc1cc' }}>✓</div>
+            <h2 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 700, color: '#252f38' }}>Thanks for reviewing!</h2>
+            <p style={{ margin: '0 0 28px', fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>Your score has been saved successfully.</p>
+            <button onClick={() => setSaved(false)} style={{ padding: '10px 32px', background: '#252f38', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+              Done
+            </button>
+          </div>
         </div>
       )}
       <header style={{ background: '#252f38', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 60 }}>

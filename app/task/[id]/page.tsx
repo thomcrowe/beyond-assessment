@@ -193,9 +193,9 @@ function TaskInstructions({ taskId }: { taskId: number }) {
       <h3 style={sh3}>Task 1: Funnel Diagnosis</h3>
       <p style={sp}>Review the funnel data in the Data tab. Based on what you see:</p>
       <ol style={{ paddingLeft: 20, margin: 0 }}>
-        {['Identify the single highest-leverage activation gap in the funnel. Where would you focus first and why?',
-          'Write a clear problem statement. What is happening, what might be causing it, and what data would you want to validate your hypothesis?',
-          'Propose two or three specific interventions you would test. For each one, explain what you expect it to change and how you would measure whether it worked.',
+        {['Identify the single largest activation gap in the funnel. Where would you focus first and why?',
+          'Tell us what is happening, what might be causing it, and what data would you want to validate your hypothesis?',
+          'Propose one or two specific interventions you would test. For each one, explain what you expect it to change and how you would measure whether it worked.',
         ].map((item, i) => <li key={i} style={{ ...sp, marginBottom: 12 }}>{item}</li>)}
       </ol>
     </div>
@@ -208,7 +208,7 @@ function TaskInstructions({ taskId }: { taskId: number }) {
       <ol style={{ paddingLeft: 20, margin: 0 }}>
         {['Based on the data, which email has the biggest problem and what is it?',
           'Diagnose what is wrong with it. Use the copy and the metrics together to build your case.',
-          'What would you change and why? Be specific. You do not need to rewrite the email -- explain what needs to be different and what outcome you would expect.',
+          'What would you change and why? Be specific. You do not need to rewrite the email - explain what needs to be different and what outcome you would expect.',
         ].map((item, i) => <li key={i} style={{ ...sp, marginBottom: 12 }}>{item}</li>)}
       </ol>
     </div>
@@ -222,7 +222,7 @@ function TaskInstructions({ taskId }: { taskId: number }) {
         {['Write the prompt you would use to brief an AI tool to analyze the activation funnel. Show the actual prompt -- include the context you gave, what you asked for, and any constraints.',
           'Paste the output the AI returned.',
           'Show your interpretation. What was useful? What did it miss or get wrong? What would you actually act on?',
-          'What is your top recommendation for improving activation in the next 30 days? Back it with data from this brief and explain how you would measure success.',
+          'What is your top recommendation for improving activation in the next 30 days? Back it with data from this brief. How would you measure success?',
         ].map((item, i) => <li key={i} style={{ ...sp, marginBottom: 12 }}>{item}</li>)}
       </ol>
     </div>
