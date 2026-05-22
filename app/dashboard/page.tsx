@@ -74,6 +74,11 @@ export default function Dashboard() {
       .from('candidates')
       .update({ status: 'submitted', submitted_at: new Date().toISOString() })
       .eq('id', candidate.id)
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ candidateName: candidate.name, candidateEmail: candidate.email }),
+    })
     router.push('/submit')
   }
 
