@@ -91,6 +91,13 @@ export default function AdminReview() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+
+      {/* Save toast */}
+      {saved && (
+        <div style={{ position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)', background: '#252f38', color: 'white', padding: '14px 28px', borderRadius: 12, fontSize: 14, fontWeight: 600, boxShadow: '0 8px 32px rgba(37,47,56,0.2)', zIndex: 1000, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ color: '#3bc1cc', fontSize: 18 }}>✓</span> Thanks for reviewing — score saved.
+        </div>
+      )}
       <header style={{ background: '#252f38', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 60 }}>
         <button onClick={() => router.push('/admin/submissions')} style={{ color: '#9ca3af', background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontFamily: 'inherit' }}>
           ← All Submissions
