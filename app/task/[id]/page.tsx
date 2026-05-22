@@ -91,6 +91,7 @@ export default function TaskPage() {
   }
 
   async function handleMarkComplete() {
+    if (saveTimer.current) clearTimeout(saveTimer.current)
     const fields = { response, aiPrompt, aiOutput, aiInterpretation, aiRecommendation }
     await autoSave(fields, true)
     setCompleted(true)
