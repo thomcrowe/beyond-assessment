@@ -9,7 +9,7 @@ const TASKS = [
     id: 1,
     title: 'Funnel Diagnosis',
     subtitle: 'Analyze the activation data and identify where to focus',
-    time: '45 - 60 min',
+    time: '20 min',
     icon: '📊',
     description: 'Review the funnel data and paid acquisition metrics. Identify the highest-leverage conversion gap, build your problem statement, and propose interventions you would test.',
   },
@@ -17,7 +17,7 @@ const TASKS = [
     id: 2,
     title: 'Email Sequence Analysis',
     subtitle: 'Diagnose what is broken and what you would do about it',
-    time: '30 - 45 min',
+    time: '20 min',
     icon: '✉️',
     description: 'Review the performance metrics and copy for all four onboarding emails. Identify the biggest problem, diagnose what is wrong, and tell us what you would change and why.',
   },
@@ -25,7 +25,7 @@ const TASKS = [
     id: 3,
     title: 'AI-Powered Analysis',
     subtitle: 'Use AI as a thinking partner and show your work',
-    time: '45 - 60 min',
+    time: '20 min',
     icon: '⚡',
     description: 'Write a prompt to brief an AI tool on the activation funnel. Show the output, evaluate it critically, and deliver your top recommendation backed by data from the brief.',
   },
@@ -104,7 +104,7 @@ export default function Dashboard() {
             Your Assessment
           </h1>
           <p style={{ fontSize: 15, color: '#6b7280', margin: 0, lineHeight: 1.6 }}>
-            Complete all three tasks in any order. Your work saves automatically as you type. Submit when all three are marked complete.
+            Complete all three tasks in any order. The whole assessment should take about one hour. Your work saves automatically as you type. Submit when all three are marked complete.
           </p>
         </div>
 

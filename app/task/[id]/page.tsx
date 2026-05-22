@@ -202,7 +202,7 @@ function TaskInstructions({ taskId }: { taskId: number }) {
   if (taskId === 2) return (
     <div>
       <h3 style={sh3}>Task 2: Email Sequence Analysis</h3>
-      <p style={sp}>Review the metrics and copy for all four onboarding emails in the tabs above.</p>
+      <p style={sp}>Review the metrics and copy for the three onboarding emails in the tabs above.</p>
       <ol style={{ paddingLeft: 20, margin: 0 }}>
         {['Based on the data, which email has the biggest problem and what is it?',
           'Diagnose what is wrong with it. Use the copy and the metrics together to build your case.',

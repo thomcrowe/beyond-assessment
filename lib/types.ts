@@ -102,7 +102,6 @@ export const EMAIL_METRICS = [
   { name: 'Email 1: Welcome to Beyond', timing: 'Immediately on signup', sends: '7,800', openRate: '58%', clickRate: '24%', unsubRate: '0.2%' },
   { name: 'Email 2: Understanding Your Pricing', timing: 'Day 3', sends: '6,900', openRate: '29%', clickRate: '1.2%', unsubRate: '2.4%' },
   { name: 'Email 3: Your Listing, Your Control', timing: 'Day 6', sends: '5,400', openRate: '33%', clickRate: '8.1%', unsubRate: '0.6%' },
-  { name: 'Email 4: Your First Rate Is Ready', timing: 'Trigger: listing connected', sends: '1,180', openRate: '63%', clickRate: '38%', unsubRate: '0.1%' },
 ]
 
 export const EMAIL_COPY = [
@@ -180,32 +179,6 @@ Enable pricing for your listing and see your calendar come to life.
 In your corner,
 Jamie from Beyond`,
   },
-  {
-    number: 4,
-    name: 'Email 4: Your First Rate Is Ready (Triggered)',
-    from: 'Jamie from Beyond',
-    subject: 'Your first rate recommendations are ready, {{first_name}}',
-    body: `Hey {{first_name}},
-
-You connected your account. Now the work starts.
-
-We've already pulled your listing data, analyzed comparable properties in {{market}}, and built your first set of price recommendations. They're live in your dashboard right now.
-
-Here's what we found:
-
-{{#if upcoming_event_name}}
-There's a demand spike coming. {{upcoming_event_name}} on {{upcoming_event_date}} is driving strong booking activity in your area. Your rates for those dates are already optimized to capture it.
-{{/if}}
-
-Your base price is set at \${{base_price}}/night based on your market and listing type. You can adjust this anytime -- it's the number Beyond uses as a reference point when building your rates.
-
-To start posting prices to your calendar, enable pricing for your listing. It takes one click.
-
-Enable pricing and start earning.
-
-Let's go,
-Jamie from Beyond`,
-  },
 ]
 
 export const RUBRIC = {
@@ -269,7 +242,7 @@ export const RUBRIC = {
         1: 'Reads metrics in isolation without connecting them to user behavior',
         2: 'Notes the low click rate but misses the unsubscribe signal',
         3: 'Connects open rate, click rate, and unsubscribe rate into a coherent story',
-        4: 'Uses Email 4 performance as a benchmark for what good looks like',
+        4: 'Uses Email 1 and Email 3 performance as a benchmark for what good looks like',
       },
     },
     {
