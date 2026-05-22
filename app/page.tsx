@@ -10,8 +10,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  function isValidEmail(val: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)
+  }
+
   async function handleStart(e: React.FormEvent) {
     e.preventDefault()
+    if (!isValidEmail(email)) { setError('Please enter a valid email address.'); return }
     setLoading(true)
     setError('')
 
@@ -72,7 +77,7 @@ export default function Home() {
           Take-Home Assessment
         </p>
         <p style={{ fontSize: 14, color: '#6b7280', lineHeight: 1.65, margin: '0 0 32px' }}>
-          This assessment takes approximately 2 to 3 hours. You can save your progress and return at any time using this same email address.
+          This assessment takes approximately one hour. You can save your progress and return at any time using this same email address.
         </p>
 
         <form onSubmit={handleStart}>
