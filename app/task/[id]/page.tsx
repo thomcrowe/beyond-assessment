@@ -94,6 +94,7 @@ export default function TaskPage() {
     const fields = { response, aiPrompt, aiOutput, aiInterpretation, aiRecommendation }
     await autoSave(fields, true)
     setCompleted(true)
+    router.push('/dashboard')
   }
 
   function canComplete() {
