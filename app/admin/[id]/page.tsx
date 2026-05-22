@@ -13,7 +13,7 @@ export default function AdminReview() {
   const [candidate, setCandidate] = useState<Candidate | null>(null)
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [score, setScore] = useState<Partial<Score>>({})
-  const [reviewerEmail, setReviewerEmail] = useState('')
+  const [reviewerName, setReviewerName] = useState('')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [activeTask, setActiveTask] = useState(1)
@@ -24,16 +24,17 @@ export default function AdminReview() {
   }, [candidateId])
 
   async function loadData() {
-    const [{ data: cand }, { data: subs }, { data: existingScore }] = await Promise.all([
+    const [{ data: cand }, { data: subs }, { data: existingScores }] = await Promise.all([
       supabase.from('candidates').select('*').eq('id', candidateId).single(),
       supabase.from('submissions').select('*').eq('candidate_id', candidateId).order('task_number'),
-      supabase.from('scores').select('*').eq('candidate_id', candidateId).single(),
+      supabase.from('scores').select('*').eq('candidate_id', candidateId).order('scored_at', { ascending: false }),
     ])
     setCandidate(cand)
     setSubmissions(subs || [])
-    if (existingScore) {
-      setScore(existingScore)
-      setReviewerEmail(existingScore.reviewer_email || '')
+    const latestScore = existingScores?.[0]
+    if (latestScore) {
+      setScore(latestScore)
+      setReviewerName(latestScore.reviewer_name || '')
     }
   }
 
@@ -50,15 +51,15 @@ export default function AdminReview() {
   }
 
   async function saveScore() {
-    if (!reviewerEmail.trim()) return
+    if (!reviewerName.trim()) return
     setSaving(true)
     const payload = {
       ...score,
       candidate_id: candidateId,
-      reviewer_email: reviewerEmail,
+      reviewer_name: reviewerName,
       scored_at: new Date().toISOString(),
     }
-    await supabase.from('scores').upsert(payload, { onConflict: 'candidate_id' })
+    await supabase.from('scores').upsert(payload, { onConflict: 'candidate_id,reviewer_name' })
     setSaving(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 2500)
@@ -78,8 +79,8 @@ export default function AdminReview() {
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <span style={{ color: '#9ca3af', fontSize: 13 }}>{saved ? <span style={{ color: '#3bc1cc' }}>✓ Saved</span> : saving ? 'Saving...' : ''}</span>
-          <button onClick={saveScore} disabled={!reviewerEmail.trim() || saving}
-            style={{ padding: '8px 20px', background: reviewerEmail.trim() ? '#3bc1cc' : '#374151', color: reviewerEmail.trim() ? '#252f38' : '#6b7280', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: reviewerEmail.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
+          <button onClick={saveScore} disabled={!reviewerName.trim() || saving}
+            style={{ padding: '8px 20px', background: reviewerName.trim() ? '#3bc1cc' : '#374151', color: reviewerName.trim() ? '#252f38' : '#6b7280', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: reviewerName.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
             Save Score
           </button>
         </div>
@@ -159,9 +160,9 @@ export default function AdminReview() {
 
           {/* Reviewer email */}
           <div style={{ marginBottom: 24 }}>
-            <label style={adminLabel}>Your Email (Reviewer)</label>
-            <input type="email" value={reviewerEmail} onChange={e => setReviewerEmail(e.target.value)}
-              placeholder="reviewer@beyondpricing.com"
+            <label style={adminLabel}>Your Name (Reviewer)</label>
+            <input type="text" value={reviewerName} onChange={e => setReviewerName(e.target.value)}
+              placeholder="e.g. Sarah"
               style={{ width: '100%', padding: '10px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 14, fontFamily: 'inherit', outline: 'none' }}
               onFocus={e => e.target.style.borderColor = '#3bc1cc'}
               onBlur={e => e.target.style.borderColor = '#e5e7eb'}
@@ -233,8 +234,8 @@ export default function AdminReview() {
             />
           </div>
 
-          <button onClick={saveScore} disabled={!reviewerEmail.trim() || saving}
-            style={{ width: '100%', padding: 14, background: reviewerEmail.trim() ? '#252f38' : '#e5e7eb', color: reviewerEmail.trim() ? 'white' : '#9ca3af', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: reviewerEmail.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
+          <button onClick={saveScore} disabled={!reviewerName.trim() || saving}
+            style={{ width: '100%', padding: 14, background: reviewerName.trim() ? '#252f38' : '#e5e7eb', color: reviewerName.trim() ? 'white' : '#9ca3af', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: reviewerName.trim() ? 'pointer' : 'not-allowed', fontFamily: 'inherit' }}>
             {saving ? 'Saving...' : 'Save Score'}
           </button>
         </div>

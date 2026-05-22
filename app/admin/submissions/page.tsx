@@ -38,14 +38,14 @@ export default function AdminSubmissions() {
   }
 
   function exportCSV() {
-    const headers = ['Name', 'Email', 'Status', 'Tasks Complete', 'Submitted At', 'Total Score', 'Signal', 'DQ: No Data', 'DQ: Missed Email 2', 'DQ: No AI Interp']
+    const headers = ['Name', 'Email', 'Status', 'Tasks Complete', 'Submitted At', 'Total Score', 'Signal', 'Reviewer', 'DQ: No Data', 'DQ: Missed Email 2', 'DQ: No AI Interp']
     const csvRows = rows.map(r => {
       const total = r.score ? calcTotal(r.score) : ''
       const signal = r.score ? scoreLabel(calcTotal(r.score)).label : ''
       return [
         r.name, r.email, r.status, r.tasksComplete,
         r.submitted_at ? new Date(r.submitted_at).toLocaleString() : '',
-        total, signal,
+        total, signal, r.score?.reviewer_name || '',
         r.score?.dq_no_data ? 'YES' : '',
         r.score?.dq_missed_email2 ? 'YES' : '',
         r.score?.dq_no_ai_interpretation ? 'YES' : '',

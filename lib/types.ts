@@ -25,7 +25,7 @@ export interface Submission {
 export interface Score {
   id: string
   candidate_id: string
-  reviewer_email: string
+  reviewer_name: string
   t1_problem_identification: number | null
   t1_data_use: number | null
   t1_intervention_quality: number | null
