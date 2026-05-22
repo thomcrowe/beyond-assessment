@@ -71,6 +71,8 @@ export default function AdminReview() {
       ...score,
       candidate_id: candidateId,
       reviewer_name: reviewerName,
+      recommendation: signal.label,
+      disqualified: dqFlags.length > 0,
       scored_at: new Date().toISOString(),
     }
     await supabase.from('scores').upsert(payload, { onConflict: 'candidate_id,reviewer_name' })
