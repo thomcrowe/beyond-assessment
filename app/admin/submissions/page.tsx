@@ -134,7 +134,7 @@ export default function AdminSubmissions() {
                         {row.submitted_at ? new Date(row.submitted_at).toLocaleDateString() : '--'}
                       </td>
                       <td style={{ fontWeight: 700, fontSize: 16, color: total ? '#252f38' : '#d1d5db' }}>
-                        {total !== null ? `${total}/40` : '--'}
+                        {total !== null ? `${total}/65` : '--'}
                       </td>
                       <td style={{ fontSize: 12, color: signal?.color || '#d1d5db', fontWeight: 600, maxWidth: 160 }}>
                         {signal?.label || '--'}

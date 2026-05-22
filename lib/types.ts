@@ -62,9 +62,9 @@ export function calcTotal(s: Partial<Score>): number {
 }
 
 export function scoreLabel(total: number): { label: string; color: string } {
-  if (total >= 34) return { label: 'Exceptional — Strong hire signal', color: '#3bc1cc' }
-  if (total >= 26) return { label: 'Strong — Minor gaps worth probing', color: '#02556c' }
-  if (total >= 18) return { label: 'Developing — Panel review recommended', color: '#f59e0b' }
+  if (total >= 55) return { label: 'Exceptional — Strong hire signal', color: '#3bc1cc' }
+  if (total >= 42) return { label: 'Strong — Minor gaps worth probing', color: '#02556c' }
+  if (total >= 29) return { label: 'Developing — Panel review recommended', color: '#f59e0b' }
   return { label: 'Not ready for this scope', color: '#ee3968' }
 }
 
@@ -191,6 +191,7 @@ export const RUBRIC = {
         2: 'Identifies a drop-off but without clear prioritization logic',
         3: 'Correctly names the primary gap with reasoning tied to funnel math',
         4: 'Identifies primary and secondary signals, shows systems thinking',
+        5: 'Maps interdependencies between gaps, quantifies opportunity cost, and surfaces a second-order insight the data alone does not reveal',
       },
     },
     {
@@ -201,6 +202,7 @@ export const RUBRIC = {
         2: 'References some data points but inconsistently',
         3: 'Backs every major claim with specific figures from the brief',
         4: 'Extracts non-obvious insights (e.g. cost-per-signup disparity, traffic vs. conversion mismatch)',
+        5: 'Synthesizes across multiple data sets to surface a non-obvious insight; identifies a data gap that would materially change the diagnosis',
       },
     },
     {
@@ -211,6 +213,7 @@ export const RUBRIC = {
         2: 'Reasonable ideas but without success metrics or rationale',
         3: 'Two or three specific, testable interventions with clear outcomes and measurement criteria',
         4: 'Interventions are sequenced, shows awareness of what to learn from each before moving on',
+        5: 'Interventions form a learning agenda: each one is designed to inform the next, with a clear thesis about what success looks like at each stage',
       },
     },
     {
@@ -221,6 +224,7 @@ export const RUBRIC = {
         2: 'Focuses on a reasonable area but rationale is thin',
         3: 'Makes a clear, defensible prioritization call and explains tradeoffs',
         4: 'Anticipates downstream consequences of the prioritization choice',
+        5: 'Prioritization is airtight: accounts for effort, reversibility, and learning value; explicitly addresses what they would not do and why',
       },
     },
   ],
@@ -233,6 +237,7 @@ export const RUBRIC = {
         2: 'Identifies the right email but focuses only on metrics without analyzing the copy',
         3: 'Correctly identifies the email and links the missing CTA to poor engagement and elevated unsubscribes',
         4: 'Names the root cause precisely: educates about pricing settings but gives the reader nowhere to go',
+        5: 'Diagnosis is surgical: names the exact failure mode and connects it to the broader funnel drop-off at OTA connection',
       },
     },
     {
@@ -243,6 +248,7 @@ export const RUBRIC = {
         2: 'Notes the low click rate but misses the unsubscribe signal',
         3: 'Connects open rate, click rate, and unsubscribe rate into a coherent story',
         4: 'Uses Email 1 and Email 3 performance as a benchmark for what good looks like',
+        5: 'Explains why the open rate is misleadingly healthy and what the unsubscribe spike signals about host state of mind',
       },
     },
     {
@@ -253,6 +259,7 @@ export const RUBRIC = {
         2: 'Suggests a CTA without explaining what action or what outcome to expect',
         3: 'Recommends a specific CTA tied to a specific product action with rationale',
         4: 'Proposes a test framework: what to change, what to measure, what result confirms the diagnosis',
+        5: 'Recommendation is fully specified: CTA, target action, expected lift, test design, and what a negative result would tell them',
       },
     },
     {
@@ -263,6 +270,7 @@ export const RUBRIC = {
         2: 'Shows some awareness of funnel stage but does not connect it to the email purpose',
         3: 'Understands Day 3 is a critical momentum window and frames the fix accordingly',
         4: 'Questions whether the content itself is timed correctly given most hosts have not yet connected',
+        5: 'Reframes the problem: identifies that the sequence may need restructuring, not just individual email fixes',
       },
     },
   ],
@@ -275,6 +283,7 @@ export const RUBRIC = {
         2: 'Includes some context but missing key constraints or goal clarity',
         3: 'Specific, well-structured prompt with clear context, constraints, and output format',
         4: 'Demonstrates mastery: relevant data included, specific analysis type, specifies what to avoid',
+        5: 'Prompt reflects deep AI fluency: structured as a multi-step task, includes negative constraints, specifies format and confidence signals',
       },
     },
     {
@@ -285,6 +294,7 @@ export const RUBRIC = {
         2: 'Notes it is a starting point but does not identify specific gaps',
         3: 'Explicitly calls out what AI got right, what it missed, and what needed correction',
         4: 'Clear editorial layer: uses AI for synthesis, applies own judgment to prioritization and nuance',
+        5: 'Treats AI output as a first draft: systematically edits for accuracy, fills gaps with own knowledge, transparent about what came from the model vs. their own judgment',
       },
     },
     {
@@ -295,6 +305,7 @@ export const RUBRIC = {
         2: 'References data but the connection to the recommendation is loose',
         3: 'Recommendation is directly tied to specific figures and gaps in the brief',
         4: 'Recommendation is falsifiable: cites the specific metric, expected magnitude, and timeframe',
+        5: 'Every claim traces to a specific number in the brief; identifies the single metric that would most quickly confirm or refute the hypothesis',
       },
     },
     {
@@ -305,6 +316,7 @@ export const RUBRIC = {
         2: 'Shows basic comfort with AI tools but prompt design is underdeveloped',
         3: 'Uses AI as a genuine thinking partner, prompt reflects expertise',
         4: 'Would be a force multiplier on the team: fast, precise, applies judgment throughout',
+        5: 'Demonstrates a workflow others could learn from; raises the ceiling of what the team can do',
       },
     },
     {
@@ -315,6 +327,7 @@ export const RUBRIC = {
         2: 'Makes a recommendation but over-qualifies with caveats',
         3: 'Clear recommendation with confident rationale, acknowledges main risk',
         4: 'Commits fully, names what they would do in first 30 days, explains what a failed experiment would tell them',
+        5: 'Acts like they are already in the role: clear 30-day plan with milestones, names what good looks like at day 30, identifies the decision that would unlock the next move',
       },
     },
   ],

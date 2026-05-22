@@ -162,7 +162,7 @@ export default function AdminReview() {
           <div style={{ background: 'white', border: '1.5px solid #e5e7eb', borderRadius: 12, padding: '20px 24px', marginBottom: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
               <span style={{ fontSize: 13, color: '#6b7280', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Score</span>
-              <span style={{ fontSize: 32, fontWeight: 700, color: '#252f38' }}>{total}<span style={{ fontSize: 16, color: '#9ca3af' }}>/40</span></span>
+              <span style={{ fontSize: 32, fontWeight: 700, color: '#252f38' }}>{total}<span style={{ fontSize: 16, color: '#9ca3af' }}>/65</span></span>
             </div>
             <div style={{ fontSize: 13, fontWeight: 600, color: signal.color }}>{signal.label}</div>
             {dqFlags.length > 0 && (
@@ -193,12 +193,12 @@ export default function AdminReview() {
                   <div key={dim.key} style={{ marginBottom: 20 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{dim.label}</div>
                     <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                      {[1, 2, 3, 4].map(val => {
+                      {[1, 2, 3, 4, 5].map(val => {
                         const current = score[dim.key as keyof Score] as number
                         const isActive = current === val
                         return (
                           <button key={val} onClick={() => setDim(dim.key, val)}
-                            className={`score-btn ${isActive ? (val === 4 ? 'active-4' : 'active') : ''}`}>
+                            className={`score-btn ${isActive ? (val === 5 ? 'active-4' : 'active') : ''}`}>
                             {val}
                           </button>
                         )
