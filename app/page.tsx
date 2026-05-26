@@ -61,10 +61,7 @@ export default function Home() {
 
       {/* Logo mark */}
       <div style={{ marginBottom: 40, textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-          <img src="/beyond-logo.svg" alt="Beyond" style={{ height: 32 }} />
-        </div>
-        <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Host Growth & Marketing</p>
+        <img src="/beyond-logo.svg" alt="Beyond" style={{ height: 32 }} />
       </div>
 
       {/* Card */}
