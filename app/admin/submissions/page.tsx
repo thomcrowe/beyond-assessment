@@ -66,8 +66,7 @@ export default function AdminSubmissions() {
     <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
       <header style={{ background: '#252f38', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 28, height: 28, background: '#3bc1cc', borderRadius: 6 }} />
-          <span style={{ color: 'white', fontWeight: 700, fontSize: 16 }}>Beyond</span>
+          <img src="/beyond-logo.svg" alt="Beyond" style={{ height: 24, filter: 'brightness(0) invert(1)' }} />
           <span style={{ color: '#6b7280', fontSize: 13, marginLeft: 4 }}>/ Admin Panel</span>
         </div>
         <div style={{ display: 'flex', gap: 12 }}>

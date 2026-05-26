@@ -93,8 +93,7 @@ export default function Dashboard() {
       {/* Header */}
       <header style={{ background: '#252f38', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 28, height: 28, background: '#3bc1cc', borderRadius: 6 }} />
-          <span style={{ color: 'white', fontWeight: 700, fontSize: 16, letterSpacing: '-0.01em' }}>Beyond</span>
+          <img src="/beyond-logo.svg" alt="Beyond" style={{ height: 24, filter: 'brightness(0) invert(1)' }} />
         </div>
         <div style={{ color: '#9ca3af', fontSize: 13 }}>
           {candidate?.name} &bull; {candidate?.email}

@@ -62,8 +62,7 @@ export default function Home() {
       {/* Logo mark */}
       <div style={{ marginBottom: 40, textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-          <div style={{ width: 36, height: 36, background: '#3bc1cc', borderRadius: 8 }} />
-          <span style={{ fontSize: 22, fontWeight: 700, color: '#252f38', letterSpacing: '-0.02em' }}>Beyond</span>
+          <img src="/beyond-logo.svg" alt="Beyond" style={{ height: 32 }} />
         </div>
         <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Host Growth & Marketing</p>
       </div>
