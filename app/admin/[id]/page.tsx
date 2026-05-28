@@ -4,6 +4,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { RUBRIC, calcTotal, scoreLabel } from '@/lib/types'
 import type { Candidate, Submission, Score } from '@/lib/types'
+import { AdminBriefPanel } from '@/app/components/TaskBrief'
 
 export default function AdminReview() {
   const router = useRouter()
@@ -18,6 +19,7 @@ export default function AdminReview() {
   const [saved, setSaved] = useState(false)
   const [saveError, setSaveError] = useState('')
   const [activeTask, setActiveTask] = useState(1)
+  const [activePanel, setActivePanel] = useState<'response' | 'brief'>('response')
 
   useEffect(() => {
     if (!sessionStorage.getItem('admin_auth')) { router.push('/admin'); return }
@@ -139,9 +141,25 @@ export default function AdminReview() {
             ))}
           </div>
 
-          {/* Response content */}
+          {/* Response / Brief toggle */}
+          <div style={{ display: 'flex', gap: 8, padding: '12px 28px', borderBottom: '1px solid #e5e7eb', background: '#f8f9fa' }}>
+            {(['response', 'brief'] as const).map(panel => (
+              <button key={panel} onClick={() => setActivePanel(panel)}
+                style={{ padding: '5px 16px', borderRadius: 20, border: '1.5px solid', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+                  background: activePanel === panel ? '#252f38' : 'white',
+                  color: activePanel === panel ? 'white' : '#6b7280',
+                  borderColor: activePanel === panel ? '#252f38' : '#e5e7eb' }}>
+                {panel === 'response' ? 'Response' : 'Brief & Data'}
+              </button>
+            ))}
+          </div>
+
+          {/* Content */}
           <div style={{ padding: '28px' }}>
-            {activeTask <= 2 && (
+            {activePanel === 'brief' && (
+              <AdminBriefPanel taskId={activeTask} />
+            )}
+            {activePanel === 'response' && activeTask <= 2 && (
               <div>
                 <label style={adminLabel}>Response</label>
                 <div style={{ background: '#f8f9fa', border: '1px solid #e5e7eb', borderRadius: 8, padding: '16px 20px', fontSize: 14, lineHeight: 1.75, whiteSpace: 'pre-wrap', color: '#252f38', minHeight: 200 }}>
@@ -149,7 +167,7 @@ export default function AdminReview() {
                 </div>
               </div>
             )}
-            {activeTask === 3 && (
+            {activePanel === 'response' && activeTask === 3 && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                 {[
                   { label: 'AI Prompt', key: 'ai_prompt' },
