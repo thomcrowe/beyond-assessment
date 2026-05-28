@@ -27,18 +27,24 @@ export default function AdminReview() {
   }, [candidateId])
 
   async function loadData() {
-    const [{ data: cand }, { data: subs }, { data: existingScores }] = await Promise.all([
+    const [{ data: cand }, { data: subs }] = await Promise.all([
       supabase.from('candidates').select('*').eq('id', candidateId).single(),
       supabase.from('submissions').select('*').eq('candidate_id', candidateId).order('task_number'),
-      supabase.from('scores').select('*').eq('candidate_id', candidateId).order('scored_at', { ascending: false }),
     ])
     setCandidate(cand)
     setSubmissions(subs || [])
-    const latestScore = existingScores?.[0]
-    if (latestScore) {
-      setScore(latestScore)
-      setReviewerName(latestScore.reviewer_name || '')
-    }
+  }
+
+  async function loadReviewerScore(name: string) {
+    if (!name.trim()) return
+    const { data } = await supabase
+      .from('scores')
+      .select('*')
+      .eq('candidate_id', candidateId)
+      .eq('reviewer_name', name.trim())
+      .single()
+    if (data) setScore(data)
+    else setScore({})
   }
 
   function getSubmission(taskNum: number) {
@@ -215,7 +221,7 @@ export default function AdminReview() {
               placeholder="e.g. Sarah"
               style={{ width: '100%', padding: '10px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 14, fontFamily: 'inherit', outline: 'none' }}
               onFocus={e => e.target.style.borderColor = '#3bc1cc'}
-              onBlur={e => e.target.style.borderColor = '#e5e7eb'}
+              onBlur={e => { e.target.style.borderColor = '#e5e7eb'; loadReviewerScore(e.target.value) }}
             />
           </div>
 
