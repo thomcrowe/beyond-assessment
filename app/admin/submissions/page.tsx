@@ -123,7 +123,7 @@ export default function AdminSubmissions() {
             <table className="data-table">
               <thead>
                 <tr>
-                  {['Candidate','Status','Tasks','Submitted','Score','Signal','DQ Flags',''].map(h => <th key={h}>{h}</th>)}
+                  {['Candidate','Status','Tasks','Submitted', ...(isSuper ? ['Score','Signal','DQ Flags'] : []),''].map(h => <th key={h}>{h}</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -151,19 +151,23 @@ export default function AdminSubmissions() {
                       <td style={{ fontSize: 12, color: '#6b7280' }}>
                         {row.submitted_at ? new Date(row.submitted_at).toLocaleDateString() : '--'}
                       </td>
-                      <td style={{ fontWeight: 700, fontSize: 16, color: total ? '#252f38' : '#d1d5db' }}>
-                        {total !== null ? `${total}/65` : '--'}
-                      </td>
-                      <td style={{ fontSize: 12, color: signal?.color || '#d1d5db', fontWeight: 600, maxWidth: 160 }}>
-                        {signal?.label || '--'}
-                      </td>
-                      <td>
-                        {dqCount > 0 && (
-                          <span style={{ fontSize: 12, fontWeight: 700, color: '#ee3968', background: '#fdedf1', padding: '2px 8px', borderRadius: 12 }}>
-                            {dqCount} DQ
-                          </span>
-                        )}
-                      </td>
+                      {isSuper && <>
+                        <td style={{ fontWeight: 700, fontSize: 16, color: total ? '#252f38' : '#d1d5db' }}>
+                          {total !== null ? `${total}/65` : '--'}
+                        </td>
+                        <td style={{ fontSize: 12, color: signal?.color || '#d1d5db', fontWeight: 600, maxWidth: 160 }}>
+                          {signal?.label || '--'}
+                        </td>
+                      </>}
+                      {isSuper && (
+                        <td>
+                          {dqCount > 0 && (
+                            <span style={{ fontSize: 12, fontWeight: 700, color: '#ee3968', background: '#fdedf1', padding: '2px 8px', borderRadius: 12 }}>
+                              {dqCount} DQ
+                            </span>
+                          )}
+                        </td>
+                      )}
                       <td>
                         <div style={{ display: 'flex', gap: 8 }}>
                           <button onClick={() => router.push(`/admin/${row.id}`)}
