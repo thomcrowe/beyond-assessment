@@ -11,6 +11,11 @@ export default function AdminLogin() {
     e.preventDefault()
     if (password === 'sd15AZs4Jw7Wm86b2') {
       sessionStorage.setItem('admin_auth', 'true')
+      sessionStorage.setItem('admin_level', 'super')
+      router.push('/admin/submissions')
+    } else if (password === 'beyondreview') {
+      sessionStorage.setItem('admin_auth', 'true')
+      sessionStorage.setItem('admin_level', 'reviewer')
       router.push('/admin/submissions')
     } else {
       setError('Incorrect password.')

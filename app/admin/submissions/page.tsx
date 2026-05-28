@@ -16,9 +16,11 @@ export default function AdminSubmissions() {
   const [loading, setLoading] = useState(true)
   const [panelScores, setPanelScores] = useState<Score[] | null>(null)
   const [panelCandidate, setPanelCandidate] = useState<Row | null>(null)
+  const [isSuper, setIsSuper] = useState(false)
 
   useEffect(() => {
     if (!sessionStorage.getItem('admin_auth')) { router.push('/admin'); return }
+    setIsSuper(sessionStorage.getItem('admin_level') === 'super')
     loadData()
   }, [])
 
@@ -85,9 +87,11 @@ export default function AdminSubmissions() {
           <span style={{ color: '#6b7280', fontSize: 13, marginLeft: 4 }}>/ Admin Panel</span>
         </div>
         <div style={{ display: 'flex', gap: 12 }}>
-          <button onClick={exportCSV} style={{ padding: '8px 18px', background: '#3bc1cc', color: '#252f38', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
-            Export CSV
-          </button>
+          {isSuper && (
+            <button onClick={exportCSV} style={{ padding: '8px 18px', background: '#3bc1cc', color: '#252f38', border: 'none', borderRadius: 7, fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+              Export CSV
+            </button>
+          )}
           <button onClick={() => { sessionStorage.removeItem('admin_auth'); router.push('/admin') }} style={{ padding: '8px 18px', background: 'transparent', color: '#9ca3af', border: '1px solid #374151', borderRadius: 7, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>
             Sign Out
           </button>
@@ -166,10 +170,12 @@ export default function AdminSubmissions() {
                             style={{ padding: '6px 14px', background: '#252f38', color: 'white', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
                             Review
                           </button>
-                          <button onClick={() => openPanelScores(row)}
-                            style={{ padding: '6px 14px', background: '#3bc1cc', color: '#252f38', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
-                            Panel Scores
-                          </button>
+                          {isSuper && (
+                            <button onClick={() => openPanelScores(row)}
+                              style={{ padding: '6px 14px', background: '#3bc1cc', color: '#252f38', border: 'none', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+                              Panel Scores
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>
