@@ -20,6 +20,8 @@ export default function AdminReview() {
   const [saveError, setSaveError] = useState('')
   const [activeTask, setActiveTask] = useState(1)
   const [activePanel, setActivePanel] = useState<'response' | 'brief'>('response')
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [allScores, setAllScores] = useState<Score[]>([])
 
   useEffect(() => {
     if (!sessionStorage.getItem('admin_auth')) { router.push('/admin'); return }
@@ -84,6 +86,9 @@ export default function AdminReview() {
       scored_at: new Date().toISOString(),
     }
     await supabase.from('scores').upsert(payload, { onConflict: 'candidate_id,reviewer_name' })
+    const { data: latest } = await supabase.from('scores').select('*').eq('candidate_id', candidateId).order('scored_at', { ascending: true })
+    setAllScores(latest || [])
+    setHasSubmitted(true)
     setSaving(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 2500)
@@ -299,6 +304,30 @@ export default function AdminReview() {
             style={{ width: '100%', padding: 14, background: '#252f38', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
             {saving ? 'Saving...' : 'Save Score'}
           </button>
+
+          {/* Panel scores — visible after submitting */}
+          {hasSubmitted && allScores.length > 0 && (
+            <div style={{ marginTop: 28 }}>
+              <h3 style={{ fontSize: 13, fontWeight: 700, color: '#374151', textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 14px' }}>All Reviewer Scores</h3>
+              {allScores.map(s => {
+                const t = calcTotal(s)
+                const sig = s.dq_no_data || s.dq_missed_email2 || s.dq_no_ai_interpretation
+                  ? { label: 'Disqualified — Do not advance', color: '#ee3968' }
+                  : scoreLabel(t)
+                const isYou = s.reviewer_name === reviewerName
+                return (
+                  <div key={s.id} style={{ background: isYou ? '#f0fafb' : 'white', border: `1.5px solid ${isYou ? '#3bc1cc' : '#e5e7eb'}`, borderRadius: 10, padding: '14px 18px', marginBottom: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#252f38' }}>{s.reviewer_name} {isYou && <span style={{ fontSize: 11, color: '#3bc1cc' }}>(you)</span>}</span>
+                      <span style={{ fontSize: 18, fontWeight: 700, color: '#252f38' }}>{t}<span style={{ fontSize: 12, color: '#9ca3af' }}>/65</span></span>
+                    </div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: sig.color }}>{sig.label}</div>
+                    {s.overall_notes && <div style={{ fontSize: 12, color: '#6b7280', marginTop: 8, lineHeight: 1.5, borderTop: '1px solid #e5e7eb', paddingTop: 8 }}>{s.overall_notes}</div>}
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
